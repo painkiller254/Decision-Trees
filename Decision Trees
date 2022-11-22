@@ -1,0 +1,75 @@
+Decision Trees
+
+Decision Trees are versatile Machine learning algorithms that can perform both classification and regression tasks, and even multiple outputs.
+
+
+Making predictions
+
+Scikit-learn uses the CART algorithm which produces only binary trees: nonleaf nodes always have two children (i.e, questions only have yes/no answers). However, other algorithms such as ID3 can prodduce decision Trees with nodes that have more than towo children.
+
+
+Estimating Class probabilities
+
+A decision Tree can also estimate the probability that an instance belongs to a particular class k: first it traverses the tree to find the leaf node for this instance, and then it return the ratio of training instances of classs k in this node.
+
+
+The CART Algorithm
+----------------------
+
+Classification and Regression Tree
+
+The idea is really quite simple: the algorithm first splits the training set into two subsets using a single feature k and the threshold tk.
+
+It searches for the pair k, tk that produces the purest subsets(weihted by their size).
+
+Once it has successfully split the training set into two, it splits the subsets using the same logic, then the sub-subsets and so on, recursively.
+
+It stops recursing once it reaches the maximum depth, or it cannot find a plit that will reduce impurity.
+
+
+Computational Complexity
+----------------------------
+
+making predictions requires traversing the Decision Tree from the root to a leaf. Decision Trees are generally apprximately balanced, so traversing the Decison Tree requires going through roughly O(log2(m)) nodes. 
+
+Since each node only requires checking the value of one feature, the overall prediction complexity is just O(log2(m)), independednt of the number of features, So predictions are very fast, even when dealing with large training sets.
+
+
+Gini Impurity or Entropy
+-------------------------
+
+Most of thetime, Gini impurity doesnt make a big difference. They lead to similar trees. 
+
+GIni impurity is slightly faster to compute, so it is a good default.
+
+However, when they differ, Gini impurity tends to isolate the most frequent class in its own branch node of the tree, while entropy tends to produce slightly more balanced trees.
+
+
+Regularization Hyperparameters
+----------------------------
+
+Decision trees are noparamteric; this is because the number of parameters is not determined prior to training, so the model strucure is free to stick closely to the data.
+
+
+TO avoid overfitting the training data, you need to restrict the Decision Tree's freedom through regularization.
+
+In scikit learn, this is controlled by the max_depth hyperparameter ( the default value is none, which means unlimited).
+
+Reducing max_depth will regularize the model and thus reduce the risk of overfitting.
+
+
+Regression
+
+Instability
+
+Decison trees are simple to understand and interpre, easy to use, versatile and powerful.
+
+However they do have limitations:
+
+1. They love orthogonal decision boundaries which makes them sensitive to training set rotation.
+
+One way to limit this problem is to use PCA which often leads in a better orientation of the training data.
+
+2. They are sensitive to small variations in the training data.
+
+Random forests can limit this instability by averaging predictions over many trees.
